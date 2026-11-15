@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Science revision: keys, pollination, gas tests and acids</title>
+<style>
+:root{--bg:#f6f3fb;--card:#ffffff;--ink:#2f2a3b;--soft:#6b6480;--lav:#cdbfeF;--lav2:#e9e2fb;--mint:#d6f2e3;--mintd:#2f7d57;--peach:#ffe3d6;--peachd:#a2512c;--sky:#dcebfb;--line:#ddd6ea}
+*{box-sizing:border-box}
+html{font-size:18px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:16px 14px 48px}
+h1{font-size:1.5rem;margin:.3em 0 .2em}
+h2{font-size:1.2rem;margin:.2em 0 .6em}
+.card{background:var(--card);border-radius:20px;padding:20px 18px;box-shadow:0 2px 10px rgba(80,60,120,.08);margin-top:14px}
+.btn{display:block;width:100%;min-height:56px;font:inherit;font-size:1.05rem;text-align:left;padding:14px 16px;margin:10px 0;border:2px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);cursor:pointer}
+.btn:focus-visible{outline:3px solid #8a74d6;outline-offset:2px}
+.btn.primary{background:#8a74d6;border-color:#8a74d6;color:#fff;text-align:center;font-weight:600}
+.btn.secondary{background:var(--lav2);border-color:var(--lav2);text-align:center;font-weight:600}
+.btn.opt:hover:not([disabled]){border-color:#a996e6}
+.btn[disabled]{cursor:default}
+.btn.right{background:var(--mint);border-color:#7cc9a0}
+.btn.wrong{background:var(--peach);border-color:#f0b394}
+.btn.picked{background:var(--sky);border-color:#9cc3ec}
+.row{display:flex;gap:10px}.row .btn{flex:1}
+.progress{height:16px;background:var(--lav2);border-radius:99px;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#b9a6f0,#9fd8bd);border-radius:99px;transition:width .4s}
+.meta{display:flex;justify-content:space-between;color:var(--soft);font-size:.9rem;margin:6px 2px 0}
+.topic{display:inline-block;background:var(--lav2);color:#5a4a8f;border-radius:99px;padding:2px 12px;font-size:.85rem;margin-bottom:6px}
+.marks{color:var(--soft);font-size:.9rem}
+.fb{border-radius:14px;padding:14px 16px;margin-top:12px;font-size:1rem}
+.fb.good{background:var(--mint);color:#1f5c3f}
+.fb.kind{background:var(--peach);color:#6b3519}
+.match-row{margin:12px 0}
+.match-row label{display:block;font-weight:600;margin-bottom:4px}
+select{width:100%;min-height:52px;font:inherit;font-size:1rem;padding:10px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+select.right{background:var(--mint)}select.wrong{background:var(--peach)}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:56px;padding:10px;border:2px dashed var(--line);border-radius:14px;margin:8px 0;background:#fcfbff}
+.chain .chip{background:var(--sky);border-radius:10px;padding:8px 12px}
+.chain .arrow{color:var(--soft);font-weight:700}
+.chain .hint{color:var(--soft)}
+textarea{width:100%;min-height:110px;font:inherit;padding:12px;border:2px solid var(--line);border-radius:12px}
+.ms{background:#faf8ff;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:12px}
+.ms ul{margin:.3em 0 .3em 1.1em;padding:0}
+.tick{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;background:#fff;border:2px solid var(--line);margin:8px 0;cursor:pointer;min-height:56px}
+.tick input{width:26px;height:26px;flex:0 0 auto;margin-top:2px}
+.diagram{display:block;margin:8px auto;max-width:100%}
+.pyr{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pyr .btn{text-align:center}
+.small{font-size:.9rem;color:var(--soft)}
+.big{font-size:2.2rem;font-weight:700;margin:.1em 0}
+.list li{margin:6px 0}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<main>
+  <div id="top">
+    <h1>Science revision: keys, pollination, gas tests and acids</h1>
+    <div class="progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" id="bar"></div></div>
+    <div class="meta"><span id="count"></span><span id="scoreSoFar"></span></div>
+  </div>
+  <div id="app"></div>
+</main>
+<script>
+window.QUIZ = {"intro": "This quiz fills in the gaps from your teacher's revision list: <strong>classification keys, sampling, pollination and food security</strong> from Topic One, and <strong>the conservation of mass practical, the carbon dioxide test, gases in the air, ores and acids</strong> from Topic Two. Take your time.", "footer": "Facts checked against your teacher's revision list and practice questions, BBC Bitesize and Oak National Academy (KS3).", "questions": [{"type": "mc", "topic": "Identifying species (classification keys)", "q": "Use the key. Start at step 1. Animal X has 6 legs and wings. What is animal X?", "diagram": "<table style=\"width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0\" aria-label=\"Classification key\"><tr style=\"background:#e9e2fb\"><th style=\"padding:8px;text-align:left\">Step</th><th style=\"padding:8px;text-align:left\">Question</th><th style=\"padding:8px;text-align:left\">Go to</th></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">1</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has legs</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">step 2</td></tr><tr><td style=\"padding:8px\">Has no legs</td><td style=\"padding:8px\">step 3</td></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">2</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has 6 legs</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">step 4</td></tr><tr><td style=\"padding:8px\">Has 8 legs</td><td style=\"padding:8px\"><strong>spider</strong></td></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">3</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has a shell</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\"><strong>snail</strong></td></tr><tr><td style=\"padding:8px\">Has no shell</td><td style=\"padding:8px\"><strong>slug</strong></td></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">4</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has wings</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\"><strong>butterfly</strong></td></tr><tr><td style=\"padding:8px\">Has no wings</td><td style=\"padding:8px\"><strong>ant</strong></td></tr></table>", "options": ["Spider", "Ant", "Butterfly", "Snail"], "answer": 2, "why": "Step 1: it has legs, so go to step 2. Step 2: it has 6 legs, so go to step 4. Step 4: it has wings, so it's a butterfly."}, {"type": "tf", "topic": "Identifying species (classification keys)", "q": "Use the key. True or false? An animal with no legs and no shell is a snail.", "diagram": "<table style=\"width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0\" aria-label=\"Classification key\"><tr style=\"background:#e9e2fb\"><th style=\"padding:8px;text-align:left\">Step</th><th style=\"padding:8px;text-align:left\">Question</th><th style=\"padding:8px;text-align:left\">Go to</th></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">1</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has legs</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">step 2</td></tr><tr><td style=\"padding:8px\">Has no legs</td><td style=\"padding:8px\">step 3</td></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">2</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has 6 legs</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">step 4</td></tr><tr><td style=\"padding:8px\">Has 8 legs</td><td style=\"padding:8px\"><strong>spider</strong></td></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">3</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has a shell</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\"><strong>snail</strong></td></tr><tr><td style=\"padding:8px\">Has no shell</td><td style=\"padding:8px\"><strong>slug</strong></td></tr><tr><td style=\"padding:8px;border-top:1px solid #ddd6ea\" rowspan=\"2\">4</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\">Has wings</td><td style=\"padding:8px;border-top:1px solid #ddd6ea\"><strong>butterfly</strong></td></tr><tr><td style=\"padding:8px\">Has no wings</td><td style=\"padding:8px\"><strong>ant</strong></td></tr></table>", "answer": 1, "why": "Step 1: no legs, so go to step 3. Step 3: no shell, so it's a <strong>slug</strong>. A snail has a shell. Always start at step 1 and follow each choice in turn."}, {"type": "mc", "topic": "Pollination and food security", "q": "What is pollination?", "options": ["When seeds are scattered by the wind or animals", "The transfer of pollen from the anther (male part) to the stigma (female part) of a flower", "When a plant makes glucose using light", "When insects eat the petals of a flower"], "answer": 1, "why": "Pollination moves pollen from the anther to the stigma. It's needed so the plant can make seeds. Scattering seeds is a different process, called dispersal."}, {"type": "match", "topic": "Pollination and food security", "q": "Match each part of an insect-pollinated flower to its job.", "pairs": [["Anther", "Makes pollen"], ["Stigma", "Is sticky to collect pollen"], ["Brightly coloured petals", "Attract insects"], ["Nectar", "A sugary reward for insects"]], "choiceOrder": [3, 1, 0, 2], "why": "Insects visit for the nectar, attracted by bright petals. Pollen from the anther rubs onto them and is then left on the sticky stigma of the next flower."}, {"type": "short", "topic": "Pollination and food security", "marks": 2, "q": "<strong>Describe</strong> what is meant by food security. Then <strong>explain</strong> how a big fall in the number of bees could lead to food insecurity.", "scheme": "<ul><li>food security means having a reliable source of enough nutritious food (1)</li><li>bees pollinate many crops, for example apples, plums and pears, so fewer bees means fewer plants are pollinated and less fruit and fewer seeds are made, so there is less food (1)</li></ul>", "points": ["I said food security means having enough reliable, nutritious food (1 mark)", "I explained that fewer bees means less pollination, so less fruit or food is produced (1 mark)"], "why": "Most of our food depends on plants, even meat, because farm animals eat plants. Many fruit plants need insects like bees to pollinate them."}, {"type": "mc", "topic": "Sampling", "q": "Why do scientists use sampling instead of counting every organism in a habitat?", "options": ["Because counting everything would take far too long, so they study a smaller part and use it to estimate the whole area", "Because sampling always gives the exact number of every organism", "Because it lets them choose only the places with the most organisms", "Because organisms are easier to count when they are moving"], "answer": 0, "why": "Counting every organism is usually impossible or would take far too long. Sampling is faster and cheaper, and gives a good estimate as long as it's done randomly, without choosing the 'best' spots."}, {"type": "order", "topic": "Conservation of mass practical", "q": "Put the steps of a conservation of mass practical in the right order.", "items": ["Put both reactants in a flask, keeping them apart, and seal it", "Weigh the sealed flask and everything in it, and record the mass", "Tip the flask so the reactants mix and react", "When the reaction has stopped, weigh the sealed flask again and compare"], "shuffled": [2, 0, 3, 1], "why": "The flask stays sealed, so any gas made can't escape. The mass before and after should be the same, because no atoms are created or destroyed."}, {"type": "gap", "topic": "Test for carbon dioxide", "q": "Fill the gap: To test a gas for carbon dioxide, bubble it through ______. If it turns milky (cloudy white), carbon dioxide is present.", "options": ["water", "limewater", "vinegar", "oil"], "answer": 1, "why": "Carbon dioxide turns limewater from colourless to milky. You can use a delivery tube to bubble the gas into the limewater."}, {"type": "mc", "topic": "Carbon dioxide in nature", "q": "Which of these natural processes <strong>adds</strong> carbon dioxide to the air?", "options": ["Photosynthesis by plants", "Respiration by living things", "Carbon dioxide dissolving in sea water", "Pollination by bees"], "answer": 1, "why": "Respiration (glucose + oxygen → carbon dioxide + water) releases carbon dioxide. Photosynthesis and dissolving in sea water take carbon dioxide <em>out</em> of the air."}, {"type": "match", "topic": "Atmospheric gases", "q": "Match each gas to roughly how much of the air it makes up.", "pairs": [["Nitrogen", "About 78%"], ["Oxygen", "About 21%"], ["Argon", "About 0.9% (less than 1%)"]], "choiceOrder": [2, 0, 1], "why": "Air is mostly nitrogen (78%) and oxygen (21%). Argon is about 0.9%. Carbon dioxide and water vapour are there in even smaller amounts."}, {"type": "mc", "topic": "Ores and metal extraction", "q": "What is an ore?", "options": ["A pure metal found on its own in rocks", "A rock that contains enough of a metal (or metal compound) to make extracting it worthwhile", "A type of acid used to clean metals", "A gas given off when metals are heated"], "answer": 1, "why": "Most metals are found joined to other elements in rocks. If there's enough metal to make extracting it worth the cost, the rock is called an ore. Gold is different: it's found pure."}, {"type": "match", "topic": "Names and formulae of acids", "q": "Match each acid to its formula.", "pairs": [["Hydrochloric acid", "HCl"], ["Sulfuric acid", "H₂SO₄"], ["Nitric acid", "HNO₃"]], "choiceOrder": [1, 2, 0], "why": "All three acids contain hydrogen (H). Hydrochloric acid has chlorine (Cl). Sulfuric acid has sulfur and oxygen (SO₄). Nitric acid has nitrogen and oxygen (NO₃)."}]};
+(function(){
+"use strict";
+var Q = window.QUIZ.questions;
+var cheers = ["Brilliant, that's right! 🌟","Spot on! 🎉","Yes! Well done 😊","Great thinking! ✨","Nailed it! 🙌","Lovely, correct! 🌈"];
+var state = {round: [], idx: 0, results: {}, answered: false, roundNo: 1};
+var app = document.getElementById('app');
+function el(tag, attrs, html){var e=document.createElement(tag); if(attrs){for(var k in attrs){ if(k==='class') e.className=attrs[k]; else e.setAttribute(k,attrs[k]); }} if(html!==undefined) e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function cheer(){return cheers[Math.floor(Math.random()*cheers.length)];}
+function marksOf(q){return q.marks||1;}
+function totalMarks(list){return list.reduce(function(s,i){return s+marksOf(Q[i]);},0);}
+function gotMarks(list){return list.reduce(function(s,i){return s+(state.results[i]?state.results[i].marks:0);},0);}
+function setProgress(){
+  var n=state.round.length, done=state.idx+(state.answered?1:0);
+  var pct=n?Math.round(done/n*100):0;
+  document.getElementById('bar').style.width=pct+'%';
+  document.querySelector('.progress').setAttribute('aria-valuenow',pct);
+  document.getElementById('count').textContent = state.idx<n ? ('Question '+(state.idx+1)+' of '+n+(state.roundNo>1?' (practice round)':'')) : 'All done!';
+  var answeredIdx=state.round.slice(0,done);
+  document.getElementById('scoreSoFar').textContent = done ? (gotMarks(answeredIdx)+' / '+totalMarks(answeredIdx)+' marks so far') : '';
+}
+function start(list){state.round=list.slice(); state.idx=0; state.answered=false; list.forEach(function(i){delete state.results[i];}); render();}
+function welcome(){
+  app.innerHTML='';
+  var c=el('div',{class:'card'});
+  c.innerHTML='<h2>Hello! 👋</h2><p>'+window.QUIZ.intro+'</p><p class="small">There are '+Q.length+' questions. You get instant feedback after each one, so it\'s fine to get some wrong. That\'s how revision works!</p>';
+  var b=el('button',{class:'btn primary',id:'startBtn'},'Let\'s start');
+  b.onclick=function(){start(Q.map(function(_,i){return i;}));};
+  c.appendChild(b); app.appendChild(c);
+  document.getElementById('count').textContent='Ready when you are';
+}
+function render(){
+  setProgress();
+  if(state.idx>=state.round.length){return finish();}
+  var qi=state.round[state.idx], q=Q[qi];
+  app.innerHTML='';
+  var c=el('div',{class:'card',id:'qcard','data-type':q.type,'data-qi':qi});
+  c.appendChild(el('span',{class:'topic'},esc(q.topic)));
+  c.appendChild(el('h2',null,q.q+' <span class="marks">('+marksOf(q)+' mark'+(marksOf(q)>1?'s':'')+')</span>'));
+  if(q.diagram) c.appendChild(el('div',null,q.diagram));
+  var area=el('div',{id:'answerArea'}); c.appendChild(area);
+  var fb=el('div',{id:'feedback'}); c.appendChild(fb);
+  app.appendChild(c);
+  ({mc:renderChoice,tf:renderChoice,gap:renderChoice,match:renderMatch,order:renderOrder,short:renderShort})[q.type](q,qi,area);
+  window.scrollTo(0,0);
+}
+function nextBtn(){
+  var b=el('button',{class:'btn primary',id:'nextBtn'}, state.idx+1<state.round.length?'Next question →':'See my results');
+  b.onclick=function(){state.idx++; state.answered=false; render();};
+  return b;
+}
+function record(qi,marks,max){state.results[qi]={marks:marks,max:max}; state.answered=true; setProgress();}
+function showFeedback(ok,html){
+  var fb=document.getElementById('feedback'); fb.innerHTML='';
+  var box=el('div',{class:'fb '+(ok?'good':'kind'),role:'status'},html);
+  fb.appendChild(box); fb.appendChild(nextBtn());
+}
+function renderChoice(q,qi,area){
+  var opts=q.type==='tf'?['True','False']:q.options;
+  var wrap=el('div',{class:q.grid?'pyr':''});
+  opts.forEach(function(o,i){
+    var b=el('button',{class:'btn opt','data-i':i},esc(o)); 
+    b.onclick=function(){
+      if(state.answered) return;
+      var ok=i===q.answer;
+      wrap.querySelectorAll('button').forEach(function(x,j){x.disabled=true; if(j===q.answer) x.classList.add('right');});
+      if(!ok) b.classList.add('wrong');
+      record(qi,ok?1:0,1);
+      var right=esc(opts[q.answer]);
+      if(q.type==='gap'&&q.full) right=q.full;
+      showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>Not quite, but good try.</strong> The answer is <strong>'+right+'</strong>. '+q.why);
+    };
+    wrap.appendChild(b);
+  });
+  area.appendChild(wrap);
+}
+function renderMatch(q,qi,area){
+  var rights=q.pairs.map(function(p){return p[1];});
+  var order=q.choiceOrder||rights.map(function(_,i){return i;});
+  q.pairs.forEach(function(p,i){
+    var row=el('div',{class:'match-row'});
+    var id='m'+qi+'_'+i;
+    row.appendChild(el('label',{for:id},esc(p[0])));
+    var s=el('select',{id:id,'data-i':i});
+    s.appendChild(el('option',{value:''},'Choose…'));
+    order.forEach(function(j){s.appendChild(el('option',{value:j},esc(rights[j])));});
+    row.appendChild(s); area.appendChild(row);
+  });
+  var check=el('button',{class:'btn primary',id:'checkBtn'},'Check my matches');
+  check.onclick=function(){
+    var sels=area.querySelectorAll('select'), allChosen=true;
+    sels.forEach(function(s){if(s.value==='') allChosen=false;});
+    if(!allChosen){ var f=document.getElementById('feedback'); f.innerHTML='<div class="fb kind">Pick an answer for each one first, then check. 🙂</div>'; return; }
+    var ok=true;
+    sels.forEach(function(s){var i=+s.dataset.i; var r=(+s.value===i); s.classList.add(r?'right':'wrong'); s.disabled=true; if(!r) ok=false;});
+    check.remove();
+    record(qi,ok?1:0,1);
+    var list='<ul>'+q.pairs.map(function(p){return '<li>'+esc(p[0])+' → <strong>'+esc(p[1])+'</strong></li>';}).join('')+'</ul>';
+    showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>Nearly! Here are the right matches:</strong>'+list+q.why);
+  };
+  area.appendChild(check);
+}
+function renderOrder(q,qi,area){
+  var picked=[];
+  var chain=el('div',{class:'chain',id:'chain'});
+  var bank=el('div',{id:'bank'});
+  function draw(){
+    chain.innerHTML = picked.length? picked.map(function(i){return '<span class="chip">'+esc(q.items[i])+'</span>';}).join('<span class="arrow">→</span>') : '<span class="hint">Tap the boxes below in order…</span>';
+  }
+  q.shuffled.forEach(function(i){
+    var b=el('button',{class:'btn opt','data-i':i},esc(q.items[i]));
+    b.onclick=function(){ if(state.answered||b.disabled) return; picked.push(i); b.disabled=true; b.classList.add('picked'); draw(); if(picked.length===q.items.length) check.disabled=false; };
+    bank.appendChild(b);
+  });
+  var r=el('div',{class:'row'});
+  var reset=el('button',{class:'btn secondary',id:'resetBtn'},'Start this one again');
+  var check=el('button',{class:'btn primary',id:'checkBtn'},'Check my order'); check.disabled=true;
+  reset.onclick=function(){ if(state.answered) return; picked=[]; bank.querySelectorAll('button').forEach(function(b){b.disabled=false;b.classList.remove('picked');}); check.disabled=true; draw(); };
+  check.onclick=function(){
+    var ok=picked.every(function(v,k){return v===k;});
+    bank.querySelectorAll('button').forEach(function(b){b.disabled=true;});
+    r.remove(); record(qi,ok?1:0,1);
+    var right=q.items.map(esc).join(' → ');
+    showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>Not quite, but you\'re getting there.</strong> The right order is <strong>'+right+'</strong>. '+q.why);
+  };
+  r.appendChild(reset); r.appendChild(check);
+  draw(); area.appendChild(chain); area.appendChild(bank); area.appendChild(r);
+}
+function renderShort(q,qi,area){
+  area.appendChild(el('p',{class:'small'},'Write your answer below (or say it out loud), then open the mark scheme and tick the points you got.'));
+  var t=el('textarea',{id:'shortAns','aria-label':'Your answer',placeholder:'Type your answer here…'}); area.appendChild(t);
+  var show=el('button',{class:'btn primary',id:'showMs'},'Show me the mark scheme');
+  area.appendChild(show);
+  show.onclick=function(){
+    show.remove(); t.readOnly=true;
+    var ms=el('div',{class:'ms'});
+    ms.innerHTML='<strong>Mark scheme</strong>'+q.scheme;
+    q.points.forEach(function(p,k){
+      var lab=el('label',{class:'tick'}); var cb=el('input',{type:'checkbox','data-k':k});
+      lab.appendChild(cb); lab.appendChild(el('span',null,p)); ms.appendChild(lab);
+    });
+    var done=el('button',{class:'btn primary',id:'markBtn'},'Done marking');
+    done.onclick=function(){
+      var got=ms.querySelectorAll('input:checked').length; ms.querySelectorAll('input').forEach(function(c){c.disabled=true;});
+      done.remove(); record(qi,got,q.marks);
+      var ok=got===q.marks;
+      showFeedback(ok, ok? '<strong>Full marks! '+cheer()+'</strong> '+q.why : '<strong>You got '+got+' out of '+q.marks+'. That\'s honest marking, well done.</strong> '+q.why);
+    };
+    ms.appendChild(done); area.appendChild(ms);
+  };
+}
+function finish(){
+  app.innerHTML='';
+  var list=state.round, got=gotMarks(list), max=totalMarks(list);
+  var wrong=list.filter(function(i){return state.results[i].marks<state.results[i].max;});
+  var pct=max?got/max:0;
+  var msg= pct===1?'Perfect score! You really know this. 🌟': pct>=0.75?'Brilliant work! Just a few bits to polish. 😊': pct>=0.5?'Good effort! You\'re well on the way. Have another look at the topics below. 💪':'Well done for having a go! Every question you practise helps it stick. Try the ones below again. 🌱';
+  var c=el('div',{class:'card',id:'results'});
+  c.innerHTML='<h2>'+(state.roundNo>1?'Practice round finished':'All done!')+'</h2><div class="big" id="finalScore">'+got+' / '+max+'</div><p class="small">marks'+(state.roundNo>1?' in this practice round':'')+'</p><p>'+msg+'</p>';
+  if(wrong.length){
+    var topics=[]; wrong.forEach(function(i){ if(topics.indexOf(Q[i].topic)<0) topics.push(Q[i].topic); });
+    c.innerHTML+='<h2>Topics to look at again</h2><ul class="list" id="reviewList">'+topics.map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ul>';
+    var rb=el('button',{class:'btn primary',id:'retryWrong'},'Retry only the ones I got wrong ('+wrong.length+')');
+    rb.onclick=function(){state.roundNo++; start(wrong);};
+    c.appendChild(rb);
+  } else {
+    c.innerHTML+='<p id="reviewList">Nothing to look at again from this round. Amazing!</p>';
+  }
+  var again=el('button',{class:'btn secondary',id:'restart'},'Start the whole quiz again');
+  again.onclick=function(){state.roundNo=1; state.results={}; start(Q.map(function(_,i){return i;}));};
+  c.appendChild(again);
+  c.appendChild(el('p',{class:'small'},window.QUIZ.footer));
+  app.appendChild(c);
+}
+welcome();
+})();
+</script>
+</body>
+</html>

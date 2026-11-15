@@ -44,7 +44,9 @@ textarea{width:100%;min-height:110px;font:inherit;padding:12px;border:2px solid 
 .ms ul{margin:.3em 0 .3em 1.1em;padding:0}
 .tick{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;background:#fff;border:2px solid var(--line);margin:8px 0;cursor:pointer;min-height:56px}
 .tick input{width:26px;height:26px;flex:0 0 auto;margin-top:2px}
-.diagram{display:block;margin:8px auto;max-width:100%}
+.diagram{display:block;margin:8px auto;max-width:100%;height:auto}
+.fig{display:block;margin:8px auto;max-width:100%;height:auto;border-radius:10px}
+.note{font-size:.85rem;color:var(--soft);text-align:right;margin:0}
 .pyr{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .pyr .btn{text-align:center}
 .small{font-size:.9rem;color:var(--soft)}
@@ -107,7 +109,7 @@ function render(){
   var area=el('div',{id:'answerArea'}); c.appendChild(area);
   var fb=el('div',{id:'feedback'}); c.appendChild(fb);
   app.appendChild(c);
-  ({mc:renderChoice,tf:renderChoice,gap:renderChoice,match:renderMatch,order:renderOrder,short:renderShort})[q.type](q,qi,area);
+  ({mc:renderChoice,tf:renderChoice,gap:renderChoice,match:renderMatch,order:renderOrder,short:renderShort,multi:renderMulti,nums:renderNums})[q.type](q,qi,area);
   window.scrollTo(0,0);
 }
 function nextBtn(){
@@ -131,7 +133,7 @@ function renderChoice(q,qi,area){
       var ok=i===q.answer;
       wrap.querySelectorAll('button').forEach(function(x,j){x.disabled=true; if(j===q.answer) x.classList.add('right');});
       if(!ok) b.classList.add('wrong');
-      record(qi,ok?1:0,1);
+      record(qi,ok?marksOf(q):0,marksOf(q));
       var right=esc(opts[q.answer]);
       if(q.type==='gap'&&q.full) right=q.full;
       showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>Not quite, but good try.</strong> The answer is <strong>'+right+'</strong>. '+q.why);
@@ -141,7 +143,7 @@ function renderChoice(q,qi,area){
   area.appendChild(wrap);
 }
 function renderMatch(q,qi,area){
-  var rights=q.pairs.map(function(p){return p[1];});
+  var rights=q.pairs.map(function(p){return p[1];}).concat(q.extra||[]);
   var order=q.choiceOrder||rights.map(function(_,i){return i;});
   q.pairs.forEach(function(p,i){
     var row=el('div',{class:'match-row'});
@@ -157,12 +159,12 @@ function renderMatch(q,qi,area){
     var sels=area.querySelectorAll('select'), allChosen=true;
     sels.forEach(function(s){if(s.value==='') allChosen=false;});
     if(!allChosen){ var f=document.getElementById('feedback'); f.innerHTML='<div class="fb kind">Pick an answer for each one first, then check. 🙂</div>'; return; }
-    var ok=true;
-    sels.forEach(function(s){var i=+s.dataset.i; var r=(+s.value===i); s.classList.add(r?'right':'wrong'); s.disabled=true; if(!r) ok=false;});
+    var ok=true, nright=0;
+    sels.forEach(function(s){var i=+s.dataset.i; var r=(+s.value===i); s.classList.add(r?'right':'wrong'); s.disabled=true; if(!r) ok=false; else nright++;});
     check.remove();
-    record(qi,ok?1:0,1);
+    if(q.perItem){ record(qi,Math.min(nright,marksOf(q)),marksOf(q)); } else record(qi,ok?marksOf(q):0,marksOf(q));
     var list='<ul>'+q.pairs.map(function(p){return '<li>'+esc(p[0])+' → <strong>'+esc(p[1])+'</strong></li>';}).join('')+'</ul>';
-    showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>Nearly! Here are the right matches:</strong>'+list+q.why);
+    showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>Nearly!'+(q.perItem?' You got '+nright+' out of '+marksOf(q)+'.':'')+' Here are the right matches:</strong>'+list+q.why);
   };
   area.appendChild(check);
 }
@@ -185,7 +187,7 @@ function renderOrder(q,qi,area){
   check.onclick=function(){
     var ok=picked.every(function(v,k){return v===k;});
     bank.querySelectorAll('button').forEach(function(b){b.disabled=true;});
-    r.remove(); record(qi,ok?1:0,1);
+    r.remove(); record(qi,ok?marksOf(q):0,marksOf(q));
     var right=q.items.map(esc).join(' → ');
     showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>Not quite, but you\'re getting there.</strong> The right order is <strong>'+right+'</strong>. '+q.why);
   };
@@ -214,6 +216,52 @@ function renderShort(q,qi,area){
     };
     ms.appendChild(done); area.appendChild(ms);
   };
+}
+function renderMulti(q,qi,area){
+  var chosen=[];
+  area.appendChild(el('p',{class:'small'},'Pick '+q.pick+'.'));
+  var wrap=el('div');
+  var check=el('button',{class:'btn primary',id:'checkBtn'},'Check my answers'); check.disabled=true;
+  q.options.forEach(function(o,i){
+    var b=el('button',{class:'btn opt','data-i':i,'aria-pressed':'false'},esc(o));
+    b.onclick=function(){ if(state.answered) return; var k=chosen.indexOf(i);
+      if(k>=0){chosen.splice(k,1); b.classList.remove('picked'); b.setAttribute('aria-pressed','false');}
+      else if(chosen.length<q.pick){chosen.push(i); b.classList.add('picked'); b.setAttribute('aria-pressed','true');}
+      check.disabled=chosen.length!==q.pick; };
+    wrap.appendChild(b);
+  });
+  check.onclick=function(){
+    var got=chosen.filter(function(i){return q.answers.indexOf(i)>=0;}).length;
+    wrap.querySelectorAll('button').forEach(function(b,j){b.disabled=true; b.classList.remove('picked'); if(q.answers.indexOf(j)>=0) b.classList.add('right'); else if(chosen.indexOf(j)>=0) b.classList.add('wrong');});
+    check.remove(); record(qi,got,marksOf(q));
+    var ok=got===marksOf(q);
+    showFeedback(ok, ok? '<strong>'+cheer()+'</strong> '+q.why : '<strong>You got '+got+' out of '+marksOf(q)+'. Good try!</strong> Right answers: <strong>'+q.answers.map(function(i){return esc(q.options[i]);}).join(', ')+'</strong>. '+q.why);
+  };
+  area.appendChild(wrap); area.appendChild(check);
+}
+function renderNums(q,qi,area){
+  var inputs=[];
+  q.fields.forEach(function(f,i){
+    var row=el('div',{class:'match-row'}); var id='n'+qi+'_'+i;
+    row.appendChild(el('label',{for:id},f.label));
+    var inp=el('input',{id:id,type:'text',inputmode:'decimal',autocomplete:'off','data-i':i});
+    inp.style.cssText='width:100%;min-height:52px;font:inherit;font-size:1.05rem;padding:10px;border:2px solid var(--line);border-radius:12px';
+    row.appendChild(inp); area.appendChild(row); inputs.push(inp);
+  });
+  var check=el('button',{class:'btn primary',id:'checkBtn'},'Check my answers');
+  check.onclick=function(){
+    var vals=inputs.map(function(x){return parseFloat(String(x.value).replace(',','.'));});
+    if(vals.some(function(v){return isNaN(v);})){ document.getElementById('feedback').innerHTML='<div class="fb kind">Fill in every box with a number first. 🙂</div>'; return; }
+    var okField=q.fields.map(function(f,i){ var target=f.answer;
+      if(f.ecf){ target=f.ecf.plus||0; f.ecf.sum.forEach(function(j){target+=vals[j];}); if(f.ecf.mul) target*=f.ecf.mul; }
+      return Math.abs(vals[i]-target)<=(f.tol||0); });
+    inputs.forEach(function(x,i){x.readOnly=true; x.style.background=okField[i]?'var(--mint)':'var(--peach)';});
+    var got=0; q.groups.forEach(function(g){ if(g.fields.every(function(i){return okField[i];})) got+=g.marks; });
+    check.remove(); record(qi,got,marksOf(q));
+    var ok=got===marksOf(q);
+    showFeedback(ok, (ok? '<strong>'+cheer()+'</strong> ' : '<strong>You got '+got+' out of '+marksOf(q)+'. Nice work having a go!</strong> ')+q.why);
+  };
+  area.appendChild(check);
 }
 function finish(){
   app.innerHTML='';
